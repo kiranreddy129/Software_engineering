@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THALA bus - Book Bus Tickets Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="MSK Travels logo" class="logo-img">
+            <span class="logo-text"><span class="logo-thala">THALA</span><span class="logo-bus">bus</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="trip_planner.html" style="color: var(--primary-color); font-weight: 600;">Trip Planner</a>
+            <a href="#" id="my-bookings-link">My Bookings</a>
+            <a href="#">Help</a>
+            <a href="operator.html" style="background:linear-gradient(135deg,#00a699,#007a70);color:white;padding:0.45rem 1.1rem;border-radius:20px;font-weight:700;font-size:0.88rem;letter-spacing:0.3px;">🚍 Operator Login</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Explore Your Next Adventure</h1>
+            <p>Seamlessly book luxury bus travel across the country.</p>
+            
+            <form id="search-form" class="search-box">
+                <div class="input-group autocomplete-wrapper" id="source-wrapper">
+                    <label>From</label>
+                    <input type="text" id="source" placeholder="Leaving from (e.g. Hyderabad)" autocomplete="off" required>
+                    <div id="source-list" class="autocomplete-dropdown"></div>
+                </div>
+                <div class="input-group autocomplete-wrapper" id="destination-wrapper">
+                    <label>To</label>
+                    <input type="text" id="destination" placeholder="Going to (e.g. Bangalore)" autocomplete="off" required>
+                    <div id="destination-list" class="autocomplete-dropdown"></div>
+                </div>
+                <div class="input-group">
+                    <label>Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="btn-primary">Search Buses</button>
+            </form>
+        </div>
+    </header>
+
+    <section class="famous-routes-section" id="famous-routes-section">
+        <div class="container">
+            <h2 style="font-size: 1.5rem; color: #1e1e1e; margin-bottom: 1.5rem;">Famous Bus Routes</h2>
+            <div class="famous-routes-grid">
+                <div class="route-card" onclick="document.getElementById('source').value='Hyderabad'; document.getElementById('destination').value='Bangalore'; document.getElementById('source-list').style.display='none'; document.getElementById('destination-list').style.display='none';">
+                    <img src="images/hyderabad.png" alt="Hyderabad" class="route-image">
+                    <div class="route-info">
+                        <div class="route-details">
+                            <h4>Hyderabad to Bangalore</h4>
+                            <p>From ₹750</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-card" onclick="document.getElementById('source').value='Chennai'; document.getElementById('destination').value='Bangalore'; document.getElementById('source-list').style.display='none'; document.getElementById('destination-list').style.display='none';">
+                    <img src="images/chennai.png" alt="Chennai" class="route-image">
+                    <div class="route-info">
+                        <div class="route-details">
+                            <h4>Chennai to Bangalore</h4>
+                            <p>From ₹600</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-card" onclick="document.getElementById('source').value='Mumbai'; document.getElementById('destination').value='Pune'; document.getElementById('source-list').style.display='none'; document.getElementById('destination-list').style.display='none';">
+                    <img src="images/mumbai.png" alt="Mumbai" class="route-image">
+                    <div class="route-info">
+                        <div class="route-details">
+                            <h4>Mumbai to Pune</h4>
+                            <p>From ₹350</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-card" onclick="document.getElementById('source').value='Kochi'; document.getElementById('destination').value='Coimbatore'; document.getElementById('source-list').style.display='none'; document.getElementById('destination-list').style.display='none';">
+                    <img src="images/kochi.png" alt="Kochi" class="route-image">
+                    <div class="route-info">
+                        <div class="route-details">
+                            <h4>Kochi to Coimbatore</h4>
+                            <p>From ₹450</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <div id="layout-wrapper" class="layout-hidden">
+            <!-- Filters Sidebar -->
+            <aside id="filter-sidebar" class="filter-sidebar">
+                <h2 class="filter-title">Filter buses</h2>
+                
+                <div class="filter-section">
+                    <button class="filter-pill" data-filter-type="busType" data-filter-value="AC">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        AC <span class="filter-count" id="count-ac"></span>
+                    </button>
+                    <button class="filter-pill" data-filter-type="busType" data-filter-value="SLEEPER">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 8h20M6 4v4M10 4v4M14 4v4M18 4v4"></path></svg>
+                        SLEEPER <span class="filter-count" id="count-sleeper"></span>
+                    </button>
+                    <button class="filter-pill" data-filter-type="busType" data-filter-value="SEATER">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 18v3M19 18v3M2 8h20v10H2zM8 4h8M12 8v10"></path></svg>
+                        SEATER <span class="filter-count" id="count-seater"></span>
+                    </button>
+                    <button class="filter-pill" data-filter-type="busType" data-filter-value="Non-AC">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+                        NONAC <span class="filter-count" id="count-nonac"></span>
+                    </button>
+                </div>
+
+                <div class="filter-accordion active">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Departure time from source</h3>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <label class="filter-checkbox"><input type="checkbox" data-filter-type="timeRange" data-filter-value="06:00-12:00"> Before 6 AM <span class="filter-count"></span></label>
+                        <label class="filter-checkbox"><input type="checkbox" data-filter-type="timeRange" data-filter-value="06:00-12:00"> 6 AM to 12 PM <span class="filter-count"></span></label>
+                        <label class="filter-checkbox"><input type="checkbox" data-filter-type="timeRange" data-filter-value="12:00-18:00"> 12 PM to 6 PM <span class="filter-count"></span></label>
+                        <label class="filter-checkbox"><input type="checkbox" data-filter-type="timeRange" data-filter-value="18:00-24:00"> After 6 PM <span class="filter-count"></span></label>
+                    </div>
+                </div>
+
+                <div class="filter-accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Bus type</h3>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <label class="filter-checkbox"><input type="checkbox" data-filter-type="busType" data-filter-value="AC"> AC</label>
+                        <label class="filter-checkbox"><input type="checkbox" data-filter-type="busType" data-filter-value="Non-AC"> Non AC</label>
+                        <label class="filter-checkbox"><input type="checkbox" data-filter-type="busType" data-filter-value="Volvo"> Volvo</label>
+                    </div>
+                </div>
+                
+                <div class="filter-accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Single window seater/sleeper</h3>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="accordion-content">
+                         <label class="filter-checkbox"><input type="checkbox" data-filter-type="seatType" data-filter-value="Single Seat"> Single Seats</label>
+                    </div>
+                </div>
+
+                <div class="filter-accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Boarding points</h3>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="accordion-content">
+                         <label class="filter-checkbox"><input type="checkbox" data-filter-type="boarding" data-filter-value="Main City"> Main City Point</label>
+                         <label class="filter-checkbox"><input type="checkbox" data-filter-type="boarding" data-filter-value="Highway"> Highway Point</label>
+                    </div>
+                </div>
+
+                <div class="filter-accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Dropping points</h3>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="accordion-content">
+                         <label class="filter-checkbox"><input type="checkbox" data-filter-type="dropping" data-filter-value="City Center"> City Center</label>
+                         <label class="filter-checkbox"><input type="checkbox" data-filter-type="dropping" data-filter-value="Suburbs"> Suburbs</label>
+                    </div>
+                </div>
+
+                <div class="filter-accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Source city</h3>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="accordion-content" id="source-city-filters">
+                        <p style="color:#aaa;font-size:0.85rem;">Search for buses first.</p>
+                    </div>
+                </div>
+
+                <div class="filter-accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Destination city</h3>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="accordion-content" id="destination-city-filters">
+                        <p style="color:#aaa;font-size:0.85rem;">Search for buses first.</p>
+                    </div>
+                </div>
+            </aside>
+            
+            <div id="results-container" style="flex: 1;">
+                <div class="results-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2 style="margin: 0;">Available Buses</h2>
+                    <div class="sort-container" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                        <label for="sort-fare" style="color: var(--light-text); font-weight: 500;">Sort by:</label>
+                        <select id="sort-fare" style="padding: 0.4rem; border-radius: 6px; border: 1px solid var(--border-color); outline: none; background: white; cursor: pointer;">
+                            <option value="none">Recommended</option>
+                            <option value="low-to-high">Fare: Low to High</option>
+                            <option value="high-to-low">Fare: High to Low</option>
+                            <option value="time-early">Departure: Early to Late</option>
+                            <option value="time-late">Departure: Late to Early</option>
+                            <option value="seats-most">Seats: Most Available</option>
+                            <option value="seats-least">Seats: Least Available</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="bus-list" class="bus-list">
+                    <!-- Bus items will be injected here via JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Booking Modal with Visual Seat Layout -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+            <div class="seat-selection-area">
+                <h2 style="margin-bottom: 1rem; text-align: center;">Select Your Seat</h2>
+                <div class="bus-interior">
+                    <div class="steering-wheel"></div>
+                    <div id="seat-grid" class="seat-grid">
+                        <!-- Seats dynamically injected by JS -->
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; font-size: 0.8rem; color: #666;">
+                    <span style="display: flex; align-items: center; gap: 5px;"><div style="width:15px;height:15px;border:1px solid #aaa;border-radius:3px;"></div> Available</span>
+                    <span style="display: flex; align-items: center; gap: 5px;"><div style="width:15px;height:15px;background:#d84f57;border-radius:3px;"></div> Selected</span>
+                    <span style="display: flex; align-items: center; gap: 5px;"><div style="width:15px;height:15px;background:#ddd;border-radius:3px;"></div> Booked</span>
+                </div>
+            </div>
+
+            <div class="booking-form-area">
+                <h2>Booking Details</h2>
+                <div id="modal-bus-details"></div>
+                
+                <form id="booking-form" class="booking-form">
+                    <input type="hidden" id="book-bus-id">
+                    <input type="hidden" id="seat-number" required>
+                    
+                    <div class="input-group">
+                        <label>Selected Seat</label>
+                        <div id="selected-seat-display">None</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Passenger Name</label>
+                        <input type="text" id="passenger-name" placeholder="Full Name" required>
+                    </div>
+
+                    <div class="input-group" style="position: relative;">
+                        <label>Boarding Point</label>
+                        <select id="boarding-point" required style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; outline: none; appearance: none; cursor: pointer; background: white;">
+                            <option value="">Select Boarding Point</option>
+                            <option value="Main City Point">Main City Point</option>
+                            <option value="Highway Point">Highway Point</option>
+                        </select>
+                        <span style="position: absolute; right: 15px; top: 38px; pointer-events: none; color: #666; font-size: 0.8rem;">▼</span>
+                    </div>
+
+                    <div class="input-group" style="position: relative;">
+                        <label>Dropping Point</label>
+                        <select id="dropping-point" required style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; outline: none; appearance: none; cursor: pointer; background: white;">
+                            <option value="">Select Dropping Point</option>
+                            <option value="City Center">City Center</option>
+                            <option value="Suburbs">Suburbs</option>
+                        </select>
+                        <span style="position: absolute; right: 15px; top: 38px; pointer-events: none; color: #666; font-size: 0.8rem;">▼</span>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" style="margin-top: 1rem; width: 100%;">Confirm Booking</button>
+                </form>
+                <div id="booking-message"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- My Bookings Modal -->
+    <div id="my-bookings-modal" class="modal">
+        <div class="modal-content" style="max-width:680px; max-height:85vh; overflow-y:auto; border-radius:16px; padding:2rem;">
+            <span class="close" id="close-my-bookings">&times;</span>
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;">
+                <span style="font-size:1.8rem;">🎟️</span>
+                <h2 style="margin:0; font-size:1.5rem; color:#1e1e1e;">My Bookings</h2>
+            </div>
+            <div id="my-bookings-list"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 THALA bus. Built with C backend.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="bookings_drawer.js"></script>
+</body>
+</html>
